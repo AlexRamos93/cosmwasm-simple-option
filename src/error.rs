@@ -1,0 +1,20 @@
+use cosmwasm_std::StdError;
+use thiserror::Error;
+
+#[derive(Error, Debug)]
+pub enum ContractError {
+    #[error("{0}")]
+    Std(#[from] StdError),
+
+    #[error("Unauthorized")]
+    Unauthorized {},
+
+    #[error("Custom Error val: {val:?}")]
+    CustomError { val: String },
+
+    #[error("Option expired")]
+    Expired {},
+
+    #[error("Must send exact counter_offer: {counter_offer:?}")]
+    DiffCounterOffer { counter_offer: String },
+}
